@@ -51,6 +51,7 @@ class _SearchFieldState<T> extends State<_SearchField<T>> {
         widget.items.isEmpty) {
       focusNode.requestFocus();
     }
+    if (widget.items.isEmpty) searchRequest('');
   }
 
   @override
