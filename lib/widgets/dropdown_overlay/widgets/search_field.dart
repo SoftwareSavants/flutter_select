@@ -77,7 +77,11 @@ class _SearchFieldState<T> extends State<_SearchField<T>> {
   void onClear() {
     if (searchCtrl.text.isNotEmpty) {
       searchCtrl.clear();
-      widget.onSearchedItems(widget.items);
+      if (widget.searchType == _SearchType.onRequestData) {
+        _onFutureRequestSearch('');
+      } else {
+        widget.onSearchedItems(widget.items);
+      }
     }
   }
 
@@ -97,6 +101,19 @@ class _SearchFieldState<T> extends State<_SearchField<T>> {
     }
   }
 
+  void _onFutureRequestSearch(String val) {
+    widget.onFutureRequestLoading!(true);
+
+    if (widget.futureRequestDelay != null) {
+      _delayTimer?.cancel();
+      _delayTimer = Timer(widget.futureRequestDelay ?? Duration.zero, () {
+        searchRequest(val);
+      });
+    } else {
+      searchRequest(val);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -113,17 +130,7 @@ class _SearchFieldState<T> extends State<_SearchField<T>> {
 
           if (widget.searchType != null &&
               widget.searchType == _SearchType.onRequestData) {
-            widget.onFutureRequestLoading!(true);
-
-            if (widget.futureRequestDelay != null) {
-              _delayTimer?.cancel();
-              _delayTimer =
-                  Timer(widget.futureRequestDelay ?? Duration.zero, () {
-                searchRequest(val);
-              });
-            } else {
-              searchRequest(val);
-            }
+            _onFutureRequestSearch(val);
           } else if (widget.searchType == _SearchType.onListData) {
             onSearch(val);
           } else {
