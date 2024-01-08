@@ -447,6 +447,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
             errorStyle: decoration?.errorStyle ?? _defaultErrorStyle,
             errorText: formFieldState.errorText,
             border: InputBorder.none,
+            enabledBorder: InputBorder.none,
             contentPadding: EdgeInsets.zero,
           ),
           child: _OverlayBuilder(
