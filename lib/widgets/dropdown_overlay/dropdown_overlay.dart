@@ -191,6 +191,8 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
   @override
   void initState() {
     super.initState();
+    isSearchRequestLoading =
+        widget.items.isEmpty && widget.searchType == _SearchType.onRequestData;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final render1 = key1.currentContext?.findRenderObject() as RenderBox;
       final render2 = key2.currentContext?.findRenderObject() as RenderBox;
