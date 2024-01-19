@@ -37,6 +37,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
   final _NoResultFoundBuilder? noResultFoundBuilder;
   final CustomDropdownDecoration? decoration;
   final _DropdownType dropdownType;
+  final Widget? addNewButton;
 
   const _DropdownOverlay({
     Key? key,
@@ -73,6 +74,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
     required this.listItemBuilder,
     required this.headerListBuilder,
     required this.noResultFoundBuilder,
+    required this.addNewButton,
   });
 
   @override
@@ -488,6 +490,10 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                                         ),
                                       ),
                                     ),
+                                if (widget.addNewButton != null) ...[
+                                  widget.addNewButton!,
+                                  const Divider(height: 0),
+                                ],
                                 if (isSearchRequestLoading)
                                   widget.searchRequestLoadingIndicator ??
                                       const Padding(
