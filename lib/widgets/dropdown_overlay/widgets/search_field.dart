@@ -93,7 +93,7 @@ class _SearchFieldState<T> extends State<_SearchField<T>> {
     } catch (_) {
       widget.onFutureRequestLoading!(false);
     }
-    widget.onSearchedItems(isFieldEmpty ? widget.items : result);
+    widget.onSearchedItems(result);
     widget.mayFoundResult!(result.isNotEmpty);
 
     if (isFieldEmpty) {
