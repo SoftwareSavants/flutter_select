@@ -147,7 +147,7 @@ class CustomDropdown<T> extends StatefulWidget {
 
   final _DropdownType _dropdownType;
 
-  final Widget? addNewButton;
+  final Widget Function(VoidCallback hideOverlay)? addNewButton;
 
   CustomDropdown({
     super.key,

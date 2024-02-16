@@ -37,7 +37,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
   final _NoResultFoundBuilder? noResultFoundBuilder;
   final CustomDropdownDecoration? decoration;
   final _DropdownType dropdownType;
-  final Widget? addNewButton;
+  final Widget Function(VoidCallback hideOverlay)? addNewButton;
 
   const _DropdownOverlay({
     Key? key,
@@ -491,7 +491,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                                       ),
                                     ),
                                 if (widget.addNewButton != null) ...[
-                                  widget.addNewButton!,
+                                  widget.addNewButton!(widget.hideOverlay),
                                   const Divider(height: 0),
                                 ],
                                 if (isSearchRequestLoading)
