@@ -148,6 +148,7 @@ class CustomDropdown<T> extends StatefulWidget {
   final _DropdownType _dropdownType;
 
   final Widget Function(VoidCallback hideOverlay)? addNewButton;
+  final bool ignoreTap;
 
   CustomDropdown({
     super.key,
@@ -171,6 +172,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.hideSelectedFieldWhenExpanded = false,
     this.excludeSelected = true,
     this.addNewButton,
+    this.ignoreTap = false,
   })  : assert(
           items!.isNotEmpty,
           'Items list must contain at least one item.',
@@ -217,6 +219,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.canCloseOutsideBounds = true,
     this.hideSelectedFieldWhenExpanded = false,
     this.addNewButton,
+    this.ignoreTap = false,
   })  : assert(
           items!.isNotEmpty,
           'Items list must contain at least one item.',
@@ -263,6 +266,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.canCloseOutsideBounds = true,
     this.hideSelectedFieldWhenExpanded = false,
     this.addNewButton,
+    this.ignoreTap = false,
   })  : _searchType = _SearchType.onRequestData,
         _dropdownType = _DropdownType.singleSelect,
         initialItems = null,
@@ -291,6 +295,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.itemsListPadding,
     this.listItemPadding,
     this.addNewButton,
+    this.ignoreTap = false,
   })  : assert(
           items!.isNotEmpty,
           'Items list must contain at least one item.',
@@ -339,6 +344,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.itemsListPadding,
     this.listItemPadding,
     this.addNewButton,
+    this.ignoreTap = false,
   })  : assert(
           items!.isNotEmpty,
           'Items list must contain at least one item.',
@@ -387,6 +393,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.canCloseOutsideBounds = true,
     this.hideSelectedFieldWhenExpanded = false,
     this.addNewButton,
+    this.ignoreTap = false,
   })  : _searchType = _SearchType.onRequestData,
         _dropdownType = _DropdownType.multipleSelect,
         initialItem = null,
@@ -517,6 +524,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
                     widget.searchRequestLoadingIndicator,
                 dropdownType: widget._dropdownType,
                 addNewButton: widget.addNewButton,
+                ignoreTap: widget.ignoreTap,
               );
             },
             child: (showCallback) {
