@@ -38,7 +38,6 @@ class _DropdownOverlay<T> extends StatefulWidget {
   final CustomDropdownDecoration? decoration;
   final _DropdownType dropdownType;
   final Widget Function(VoidCallback hideOverlay)? addNewButton;
-  final bool ignoreTap;
 
   const _DropdownOverlay({
     Key? key,
@@ -76,7 +75,6 @@ class _DropdownOverlay<T> extends StatefulWidget {
     required this.headerListBuilder,
     required this.noResultFoundBuilder,
     required this.addNewButton,
-    this.ignoreTap = false,
   });
 
   @override
@@ -267,7 +265,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
             items: items,
             itemsListPadding: widget.itemsListPadding ?? listPadding,
             listItemPadding: widget.listItemPadding ?? _defaultListItemPadding,
-            onItemSelect: widget.ignoreTap ? (value) {} : onItemSelect,
+            onItemSelect: onItemSelect,
             decoration: decoration?.listItemDecoration,
             dropdownType: widget.dropdownType,
           )
