@@ -38,6 +38,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
   final CustomDropdownDecoration? decoration;
   final _DropdownType dropdownType;
   final Widget Function(VoidCallback hideOverlay)? addNewButton;
+  final bool showOverlayBelowChild;
 
   const _DropdownOverlay({
     Key? key,
@@ -75,6 +76,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
     required this.headerListBuilder,
     required this.noResultFoundBuilder,
     required this.addNewButton,
+    required this.showOverlayBelowChild,
   });
 
   @override
@@ -248,7 +250,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
     final onSearch = widget.searchType != null;
 
     // overlay offset
-    final overlayOffset = Offset(-12, displayOverlayBottom ? 0 : 64);
+    // final overlayOffset = Offset(-12, displayOverlayBottom ? 0 : 64);
 
     // list padding
     final listPadding =
@@ -284,7 +286,12 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
             followerAnchor:
                 displayOverlayBottom ? Alignment.topLeft : Alignment.bottomLeft,
             showWhenUnlinked: false,
-            offset: overlayOffset,
+            offset: Offset(
+              0.0,
+              widget.showOverlayBelowChild
+                  ? widget.layerLink.leaderSize?.height ?? 0
+                  : -widget.overlayHeight!, // + (hasLabel ? 24 : 0),
+            ),
             child: Container(
               key: key1,
               padding: _overlayOuterPadding,

@@ -411,6 +411,8 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
   late ValueNotifier<T?> selectedItemNotifier;
   late _ValueNotifierList<T> selectedItemsNotifier;
 
+  bool showOverlayBelowChild = false;
+
   @override
   void initState() {
     super.initState();
@@ -429,6 +431,31 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
     if (widget.initialItems != oldWidget.initialItems) {
       selectedItemsNotifier = _ValueNotifierList(widget.initialItems ?? []);
     }
+  }
+
+  void _showOverlay(VoidCallback showCallback) {
+    final renderBox = context.findRenderObject() as RenderBox;
+    final childSize = renderBox.size;
+
+    final offset = renderBox.globalToLocal(Offset.zero) * -1;
+
+    final mediaQuery = MediaQuery.of(context);
+
+    final screenSize = mediaQuery.size;
+
+    final childY = View.of(context).padding.top + offset.dy;
+
+    if (widget.overlayHeight != null) {
+      final canFitBelow =
+          childY + childSize.height + widget.overlayHeight! < screenSize.height;
+      final canFitAbove = childY > widget.overlayHeight!;
+
+      showOverlayBelowChild = canFitBelow || !canFitAbove;
+    } else {
+      showOverlayBelowChild = true;
+    }
+
+    setState(() => showCallback.call());
   }
 
   @override
@@ -524,13 +551,15 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
                     widget.searchRequestLoadingIndicator,
                 dropdownType: widget._dropdownType,
                 addNewButton: widget.addNewButton,
+                showOverlayBelowChild: showOverlayBelowChild,
               );
             },
             child: (showCallback) {
               return CompositedTransformTarget(
                 link: layerLink,
                 child: _DropDownField<T>(
-                  onTap: widget.readOnly ? () {} : showCallback,
+                  onTap: () =>
+                      widget.readOnly ? () {} : _showOverlay(showCallback),
                   selectedItemNotifier: selectedItemNotifier,
                   border: formFieldState.hasError
                       ? (decoration?.closedErrorBorder ?? _defaultErrorBorder)
