@@ -311,7 +311,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                   child: _AnimatedSection(
                     animationDismissed: widget.hideOverlay,
                     expand: displayOverly,
-                    axisAlignment: -1.0,
+                    axisAlignment: displayOverlayBottom ? 1.0 : -1.0,
                     child: SizedBox(
                       key: key2,
                       height: items.length > 4

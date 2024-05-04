@@ -42,7 +42,7 @@ class _AnimatedSectionState extends State<_AnimatedSection>
 
     animation = CurvedAnimation(
       parent: animController,
-      curve: Curves.easeInOut,
+      curve: Curves.linearToEaseOut,
     );
   }
 
@@ -71,6 +71,7 @@ class _AnimatedSectionState extends State<_AnimatedSection>
     return FadeTransition(
       opacity: animation,
       child: SizeTransition(
+        axis: Axis.vertical,
         axisAlignment: widget.axisAlignment,
         sizeFactor: animation,
         child: widget.child,
