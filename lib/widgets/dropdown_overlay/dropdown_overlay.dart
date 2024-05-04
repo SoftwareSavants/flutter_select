@@ -283,8 +283,6 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
           width: widget.size.width + 24,
           child: CompositedTransformFollower(
             link: widget.layerLink,
-            followerAnchor:
-                displayOverlayBottom ? Alignment.topLeft : Alignment.bottomLeft,
             showWhenUnlinked: false,
             offset: Offset(
               0.0,
