@@ -285,7 +285,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
             link: widget.layerLink,
             showWhenUnlinked: false,
             offset: Offset(
-              0.0,
+              -8.0,
               widget.showOverlayBelowChild
                   ? widget.layerLink.leaderSize?.height ?? 0
                   : -widget.overlayHeight!, // + (hasLabel ? 24 : 0),
