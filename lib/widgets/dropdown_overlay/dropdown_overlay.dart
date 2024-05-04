@@ -249,9 +249,6 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
     // search availability check
     final onSearch = widget.searchType != null;
 
-    // overlay offset
-    // final overlayOffset = Offset(-12, displayOverlayBottom ? 0 : 64);
-
     // list padding
     final listPadding =
         onSearch ? const EdgeInsets.only(top: 8) : EdgeInsets.zero;
@@ -285,7 +282,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
             link: widget.layerLink,
             showWhenUnlinked: false,
             offset: Offset(
-              -8.0,
+              -12.0,
               widget.showOverlayBelowChild
                   ? widget.layerLink.leaderSize?.height ?? 0
                   : -widget.overlayHeight!, // + (hasLabel ? 24 : 0),
@@ -314,7 +311,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                   child: _AnimatedSection(
                     animationDismissed: widget.hideOverlay,
                     expand: displayOverly,
-                    axisAlignment: displayOverlayBottom ? 1.0 : -1.0,
+                    axisAlignment: -1.0,
                     child: SizedBox(
                       key: key2,
                       height: items.length > 4

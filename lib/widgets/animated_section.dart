@@ -42,7 +42,7 @@ class _AnimatedSectionState extends State<_AnimatedSection>
 
     animation = CurvedAnimation(
       parent: animController,
-      curve: Curves.linearToEaseOut,
+      curve: Curves.easeInOut,
     );
   }
 
