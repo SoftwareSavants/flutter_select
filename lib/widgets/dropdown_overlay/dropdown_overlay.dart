@@ -8,7 +8,7 @@ const _defaultOverlayIconUp = Icon(
 const _defaultHeaderPadding = EdgeInsets.all(16.0);
 const _overlayOuterPadding =
     EdgeInsetsDirectional.only(bottom: 12, start: 12, end: 12);
-const _defaultOverlayShadowOffset = Offset(0, 6);
+const _defaultOverlayShadowOffset = Offset(6, 6);
 const _defaultListItemPadding =
     EdgeInsets.symmetric(vertical: 12, horizontal: 16);
 
@@ -285,7 +285,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
               -12.0,
               widget.showOverlayBelowChild
                   ? widget.layerLink.leaderSize?.height ?? 0
-                  : -widget.overlayHeight!, // + (hasLabel ? 24 : 0),
+                  : -widget.overlayHeight!,
             ),
             child: Container(
               key: key1,
@@ -311,12 +311,10 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                   child: _AnimatedSection(
                     animationDismissed: widget.hideOverlay,
                     expand: displayOverly,
-                    axisAlignment: displayOverlayBottom ? 1.0 : -1.0,
+                    axisAlignment: widget.showOverlayBelowChild ? 1.0 : -1.0,
                     child: SizedBox(
                       key: key2,
-                      height: items.length > 4
-                          ? widget.overlayHeight ?? (onSearch ? 270 : 225)
-                          : null,
+                      height: widget.overlayHeight ?? (onSearch ? 270 : 225),
                       child: ClipRRect(
                         borderRadius: decoration?.expandedBorderRadius ??
                             _defaultBorderRadius,
@@ -497,24 +495,27 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                                   const Divider(height: 0),
                                 ],
                                 if (isSearchRequestLoading)
-                                  widget.searchRequestLoadingIndicator ??
-                                      const Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          vertical: 20.0,
-                                        ),
-                                        child: Center(
-                                          child: SizedBox(
-                                            width: 25,
-                                            height: 25,
-                                            child: CircularProgressIndicator(
-                                              strokeWidth: 3,
+                                  Expanded(
+                                    child: widget
+                                            .searchRequestLoadingIndicator ??
+                                        const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            vertical: 20.0,
+                                          ),
+                                          child: Center(
+                                            child: SizedBox(
+                                              width: 25,
+                                              height: 25,
+                                              child: CircularProgressIndicator(
+                                                strokeWidth: 3,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      )
+                                  )
                                 else
                                   items.length > 4
-                                      ? Expanded(child: list)
+                                      ? Flexible(child: list)
                                       : list
                               ],
                             ),

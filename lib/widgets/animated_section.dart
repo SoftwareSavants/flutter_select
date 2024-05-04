@@ -71,7 +71,6 @@ class _AnimatedSectionState extends State<_AnimatedSection>
     return FadeTransition(
       opacity: animation,
       child: SizeTransition(
-        axis: Axis.vertical,
         axisAlignment: widget.axisAlignment,
         sizeFactor: animation,
         child: widget.child,
