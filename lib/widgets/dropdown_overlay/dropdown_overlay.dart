@@ -39,6 +39,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
   final _DropdownType dropdownType;
   final Widget Function(VoidCallback hideOverlay)? addNewButton;
   final bool showOverlayBelowChild;
+  final void Function()? onTap;
 
   const _DropdownOverlay({
     Key? key,
@@ -77,6 +78,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
     required this.noResultFoundBuilder,
     required this.addNewButton,
     required this.showOverlayBelowChild,
+    this.onTap,
   });
 
   @override
@@ -385,6 +387,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                                       },
                                       decoration:
                                           decoration?.searchFieldDecoration,
+                                      onTap: widget.onTap,
                                     )
                                   else
                                     GestureDetector(
@@ -411,6 +414,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                                                 },
                                                 decoration: decoration
                                                     ?.searchFieldDecoration,
+                                                onTap: widget.onTap,
                                               ),
                                             ),
                                             decoration?.expandedSuffixIcon ??
@@ -442,6 +446,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                                           mayFoundSearchRequestResult = val,
                                       decoration:
                                           decoration?.searchFieldDecoration,
+                                      onTap: widget.onTap,
                                     )
                                   else
                                     GestureDetector(
@@ -481,6 +486,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                                                         val,
                                                 decoration: decoration
                                                     ?.searchFieldDecoration,
+                                                onTap: widget.onTap,
                                               ),
                                             ),
                                             decoration?.expandedSuffixIcon ??

@@ -9,6 +9,7 @@ class _SearchField<T> extends StatefulWidget {
   final Duration? futureRequestDelay;
   final ValueChanged<bool>? onFutureRequestLoading, mayFoundResult;
   final SearchFieldDecoration? decoration;
+  final void Function()? onTap;
 
   const _SearchField.forListData({
     super.key,
@@ -16,6 +17,7 @@ class _SearchField<T> extends StatefulWidget {
     required this.onSearchedItems,
     required this.searchHintText,
     required this.decoration,
+    this.onTap,
   })  : searchType = _SearchType.onListData,
         futureRequest = null,
         futureRequestDelay = null,
@@ -32,6 +34,7 @@ class _SearchField<T> extends StatefulWidget {
     required this.onFutureRequestLoading,
     required this.mayFoundResult,
     required this.decoration,
+    required this.onTap,
   }) : searchType = _SearchType.onRequestData;
 
   @override
@@ -119,6 +122,7 @@ class _SearchFieldState<T> extends State<_SearchField<T>> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: TextField(
+        onTap: widget.onTap,
         focusNode: focusNode,
         style: widget.decoration?.textStyle,
         onChanged: (val) async {

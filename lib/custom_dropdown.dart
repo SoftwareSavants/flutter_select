@@ -148,6 +148,7 @@ class CustomDropdown<T> extends StatefulWidget {
   final _DropdownType _dropdownType;
 
   final Widget Function(VoidCallback hideOverlay)? addNewButton;
+  final void Function()? onTap;
   final bool readOnly;
 
   CustomDropdown({
@@ -173,6 +174,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.excludeSelected = true,
     this.addNewButton,
     this.readOnly = false,
+    this.onTap,
   })  : assert(
           items!.isNotEmpty,
           'Items list must contain at least one item.',
@@ -220,6 +222,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.hideSelectedFieldWhenExpanded = false,
     this.addNewButton,
     this.readOnly = false,
+    this.onTap,
   })  : assert(
           items!.isNotEmpty,
           'Items list must contain at least one item.',
@@ -267,6 +270,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.hideSelectedFieldWhenExpanded = false,
     this.addNewButton,
     this.readOnly = false,
+    this.onTap,
   })  : _searchType = _SearchType.onRequestData,
         _dropdownType = _DropdownType.singleSelect,
         initialItems = null,
@@ -296,6 +300,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.listItemPadding,
     this.addNewButton,
     this.readOnly = false,
+    this.onTap,
   })  : assert(
           items!.isNotEmpty,
           'Items list must contain at least one item.',
@@ -345,6 +350,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.listItemPadding,
     this.addNewButton,
     this.readOnly = false,
+    this.onTap,
   })  : assert(
           items!.isNotEmpty,
           'Items list must contain at least one item.',
@@ -394,6 +400,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.hideSelectedFieldWhenExpanded = false,
     this.addNewButton,
     this.readOnly = false,
+    this.onTap,
   })  : _searchType = _SearchType.onRequestData,
         _dropdownType = _DropdownType.multipleSelect,
         initialItem = null,
@@ -552,6 +559,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
                 dropdownType: widget._dropdownType,
                 addNewButton: widget.addNewButton,
                 showOverlayBelowChild: showOverlayBelowChild,
+                onTap: widget.onTap,
               );
             },
             child: (showCallback) {
