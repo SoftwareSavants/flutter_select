@@ -58,7 +58,7 @@ class _SearchFieldState<T> extends State<_SearchField<T>> {
 
       if (scrollController == null) return;
 
-      await Future.delayed(const Duration(seconds: 1));
+      await Future.delayed(const Duration(milliseconds: 300));
       if (mounted) {
         if (focusNode.hasFocus) {
           lastOffsetBeforeFocus = scrollController.offset;
@@ -67,7 +67,7 @@ class _SearchFieldState<T> extends State<_SearchField<T>> {
                 EdgeInsets.fromViewPadding(View.of(context).viewInsets,
                             View.of(context).devicePixelRatio)
                         .bottom *
-                    1.5,
+                    1.14,
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
           );
