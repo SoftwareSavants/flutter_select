@@ -9,6 +9,7 @@ class _SearchField<T> extends StatefulWidget {
   final Duration? futureRequestDelay;
   final ValueChanged<bool>? onFutureRequestLoading, mayFoundResult;
   final SearchFieldDecoration? decoration;
+  final FocusNode? focusNode;
 
   const _SearchField.forListData({
     super.key,
@@ -16,6 +17,7 @@ class _SearchField<T> extends StatefulWidget {
     required this.onSearchedItems,
     required this.searchHintText,
     required this.decoration,
+    this.focusNode,
   })  : searchType = _SearchType.onListData,
         futureRequest = null,
         futureRequestDelay = null,
@@ -32,6 +34,7 @@ class _SearchField<T> extends StatefulWidget {
     required this.onFutureRequestLoading,
     required this.mayFoundResult,
     required this.decoration,
+    required this.focusNode,
   }) : searchType = _SearchType.onRequestData;
 
   @override
@@ -41,16 +44,49 @@ class _SearchField<T> extends StatefulWidget {
 class _SearchFieldState<T> extends State<_SearchField<T>> {
   final searchCtrl = TextEditingController();
   bool isFieldEmpty = false;
-  FocusNode focusNode = FocusNode();
+  late FocusNode focusNode = widget.focusNode ?? FocusNode();
   Timer? _delayTimer;
+
+  double? lastOffsetBeforeFocus;
 
   @override
   void initState() {
     super.initState();
+
+    focusNode.addListener(() async {
+      final scrollController = PrimaryScrollController.maybeOf(context);
+
+      if (scrollController == null) return;
+
+      await Future.delayed(const Duration(milliseconds: 300));
+      if (mounted) {
+        if (focusNode.hasFocus) {
+          lastOffsetBeforeFocus = scrollController.offset;
+          scrollController.animateTo(
+            scrollController.offset +
+                EdgeInsets.fromViewPadding(View.of(context).viewInsets,
+                            View.of(context).devicePixelRatio)
+                        .bottom *
+                    1.14,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+          );
+        } else if (lastOffsetBeforeFocus != null) {
+          scrollController.animateTo(
+            lastOffsetBeforeFocus!,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+          );
+          lastOffsetBeforeFocus = null;
+        }
+      }
+    });
+
     if (widget.searchType == _SearchType.onRequestData &&
         widget.items.isEmpty) {
       focusNode.requestFocus();
     }
+
     if (widget.items.isEmpty) searchRequest('');
   }
 
