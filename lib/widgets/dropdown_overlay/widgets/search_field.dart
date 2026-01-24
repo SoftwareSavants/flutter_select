@@ -59,7 +59,7 @@ class _SearchFieldState<T> extends State<_SearchField<T>> {
       if (scrollController == null) return;
 
       await Future.delayed(const Duration(milliseconds: 300));
-      if (mounted) {
+      if (mounted && scrollController.hasClients) {
         if (focusNode.hasFocus) {
           lastOffsetBeforeFocus = scrollController.offset;
           scrollController.animateTo(
